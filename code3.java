@@ -2,62 +2,71 @@
 import java.util.Scanner;
 
 public class code3 {static Scanner sc=new Scanner(System.in);
-    public static void main(String[] args) {        
-        boolean isrunning=true;
-        while(isrunning){
-        String display="**showing contents**\n-->balance\n-->deposit\n-->withdrawal\n-->exit";
-        System.out.println(display);
-
-        System.out.println("press 1 to show balance, press 2 to deposit, press 3 to withdraw,press 4 to exit");
-        System.out.print("press the number: ");
-    int i= sc.nextInt();
-        if(i>4){
-            System.out.println("enter valid number");
-        }
-    switch(i){
-                case 1->
-                    System.out.println(balance());
-
-        case 2 -> {
-            System.out.print("enter the amount you want to deposit: ");
-
-            System.out.print(" balance: "+remaining_amount());
-        }
-
-        case 3->
-                    {
-                        System.out.print("enter the amount you want to withdraw: ");
-
-                System.out.print(" balance: "+remaining_amount2());
-                    }
-
-        case 4 -> {
-            isrunning=false;
-            System.out.println("exiting......");
-        }}
-    }
-    }static int dep(){
-        int d= sc.nextInt();
-        if(d<0){
-            System.out.println("cannot deposit");
-        }return dep();
-
-    }static int wedr(){
-        int with= sc.nextInt();
-      if(with<=0&&with>balance()) {
-          System.out.println("cannot withdraw");}
-      return wedr();
-    }static int balance(){
+    public static void main(String[] args) {
+        boolean isRunning = true;
         int balance=5000;
-        return balance;
-    }static double remaining_amount(){
-        int x=dep()+balance();
+        while (isRunning) {
+            // Display menu
+            String display = "** Showing Contents **\n--> 1. Balance\n--> 2. Deposit\n--> 3. Withdrawal\n--> 4. Exit";
+            System.out.println(display);
 
-        return x ;
-    }static double remaining_amount2(){
-        int z=balance()-wedr();
-        return z;
-    }
+            System.out.print("Press the number: ");
+            int i = sc.nextInt();
+
+            // Handle invalid input
+            if (i < 1 || i > 4) {
+                System.out.println("Enter a valid number (1-4)");
+                continue;
+            }
+
+            // Menu options
+            switch (i) {
+                case 1 -> System.out.println("Your current balance is: ₹" + balance);
+
+                case 2 -> {
+                    System.out.print("Enter the amount you want to deposit: ");
+                    int amount = dep();
+                    balance += amount;
+                    System.out.println("Deposit successful. Updated balance: ₹" + balance);
+                }
+
+                case 3 -> {
+                    System.out.print("Enter the amount you want to withdraw: ");
+                    int amount = wedr();
+                    if (amount <= balance) {
+                        balance -= amount;
+                        System.out.println("Withdrawal successful. Updated balance: ₹" + balance);
+                    } else {
+                        System.out.println("Insufficient balance.");
+                    }
+                }
+
+                case 4 -> {
+                    isRunning = false;
+                    System.out.println("Exiting... Thank you!");
+                }
+            }
+        }
     }
 
+    // Deposit method
+    static int dep() {
+        int d = sc.nextInt();
+        while (d <= 0) {
+            System.out.print("Cannot deposit negative or zero amount. Enter again: ");
+            d = sc.nextInt();
+        }
+        return d;
+    }
+
+    // Withdraw method
+    static int wedr() {
+        int w = sc.nextInt();
+        while (w <= 0) {
+            System.out.print("Cannot withdraw negative or zero amount. Enter again: ");
+            w = sc.nextInt();
+        }
+        return w;
+    }
+}
 
